@@ -21,12 +21,20 @@ fetchBreeds()
   });
 
 breedSelectEl.addEventListener('change', e => {
-  fetchCatByBreed(e.currentTarget.value).then(data => {
-    console.log(data);
-    const { url } = data;
-    catInfoEl.innerHTML = `<img src="${url}" alt="" width="50%"/>
-      <h1></h1>
-      <p></p>
-      <p></p>`;
-  });
+  fetchCatByBreed(e.currentTarget.value)
+    .then(data => {
+      console.log(data);
+      const { url, breeds } = data;
+      const { name, description, temperament } = breeds[0];
+      console.log(name);
+      catInfoEl.innerHTML = `<img src="${url}" alt="" class="cat-info__img" width="40%"/>
+   <div class="cat-info__wrapper">
+   <h1 class="cat-info__title">${name}</h1>
+      <p class="cat-info__description">${description}</p>
+      <p class="cat-info__temperament">${temperament}</p></div>`;
+    })
+    .catch(error => {
+      breedSelectEl.classList.remove('visibility');
+      errorEl.classList.add('visibility');
+    });
 });

@@ -1,7 +1,14 @@
+.container {
+  padding-left: 30px;
+  padding-right: 30px;
+  margin: 0 auto;
+  width: 100%;
+}
 .loader {
   display: none;
 }
 .breed-select {
+  margin: 0 auto;
   display: none;
 
   &.visibility {
@@ -14,4 +21,32 @@
   &.visibility {
     display: block;
   }
+}
+.cat-info {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cat-info__img {
+  margin-right: 30px;
+}
+.cat-info__wrapper {
+  width: 40%;
+}
+.cat-info__title {
+  margin-bottom: 30px;
+}
+.cat-info__description {
+  margin-bottom: 30px;
+
+  &::first-letter {
+    font-size: 30px;
+    font-weight: 700;
+  }
+
+  font-size: 20px;
+}
+.cat-info__temperament {
+  font-weight: 500;
 }
