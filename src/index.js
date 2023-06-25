@@ -11,23 +11,27 @@ const select = new SlimSelect({
   },
 });
 
-fetchBreeds()
-  .then(data => {
-    const cats = data.map(({ id, name }) => {
-      return { text: name, value: id };
+renderCats();
+linksAPIObj.refs.breedSelectEl.addEventListener('change', renderDescriptionCat);
+
+function renderCats() {
+  fetchBreeds()
+    .then(data => {
+      const cats = data.map(({ id, name }) => {
+        return { text: name, value: id };
+      });
+
+      select.setData([...cats]);
+
+      linksAPIObj.addBreedSelect();
+      linksAPIObj.removeLoader();
+    })
+    .catch(error => {
+      Notify.failure('Oops! Something went wrong! Try reloading the page!');
+      linksAPIObj.removeLoader();
     });
-
-    select.setData([...cats]);
-
-    linksAPIObj.addBreedSelect();
-    linksAPIObj.removeLoader();
-  })
-  .catch(error => {
-    Notify.failure('Oops! Something went wrong! Try reloading the page!');
-    linksAPIObj.removeLoader();
-  });
-
-linksAPIObj.refs.breedSelectEl.addEventListener('change', e => {
+}
+function renderDescriptionCat(e) {
   linksAPIObj.refs.catInfoEl.innerHTML = '';
 
   fetchCatByBreed(e.currentTarget.value)
@@ -48,4 +52,4 @@ linksAPIObj.refs.breedSelectEl.addEventListener('change', e => {
       Notify.failure('Oops! Something went wrong! Try reloading the page!');
       linksAPIObj.removeBreedSelect;
     });
-});
+}
