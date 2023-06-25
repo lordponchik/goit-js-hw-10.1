@@ -1,4 +1,5 @@
 .container {
+  padding-top: 30px;
   padding-left: 30px;
   padding-right: 30px;
   margin: 0 auto;
@@ -6,19 +7,12 @@
 }
 
 .breed-select {
-  width: 50%;
   margin: 0 auto 30px;
   display: none;
+  width: 50% !important;
 
   &.visibility {
     display: flex;
-  }
-}
-.error {
-  display: none;
-
-  &.visibility {
-    display: block;
   }
 }
 .cat-info {

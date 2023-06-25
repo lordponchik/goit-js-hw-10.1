@@ -1,6 +1,6 @@
 import axios from 'axios';
 import './axiosAPI';
-import linksAPIObj from './linksAPI';
+import { linksAPIObj } from './linksAPI';
 
 export async function fetchBreeds() {
   linksAPIObj.addLoader();

@@ -1,4 +1,4 @@
-export default linksAPIObj = {
+export const linksAPIObj = {
   refs: {
     breedSelectEl: document.querySelector('.breed-select'),
     loaderEl: document.querySelector('.loader'),
