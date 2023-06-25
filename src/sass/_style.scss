@@ -1,3 +1,17 @@
 .loader {
   display: none;
 }
+.breed-select {
+  display: none;
+
+  &.visibility {
+    display: block;
+  }
+}
+.error {
+  display: none;
+
+  &.visibility {
+    display: block;
+  }
+}

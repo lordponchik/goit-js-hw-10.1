@@ -2,6 +2,7 @@ import axios from 'axios';
 import './axiosAPI';
 
 const breedSelectEl = document.querySelector('.breed-select');
+const errorEl = document.querySelector('.error');
 
 async function fetchBreeds() {
   try {
@@ -15,7 +16,12 @@ async function fetchBreeds() {
       .join('');
 
     breedSelectEl.insertAdjacentHTML('beforeend', options);
-  } catch (error) {}
+    breedSelectEl.classList.add('visibility');
+    errorEl.classList.remove('visibility');
+  } catch (error) {
+    breedSelectEl.classList.remove('visibility');
+    errorEl.classList.add('visibility');
+  }
 }
 
 fetchBreeds();
