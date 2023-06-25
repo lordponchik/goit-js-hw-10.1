@@ -8,11 +8,12 @@
   display: none;
 }
 .breed-select {
+  width: 50%;
   margin: 0 auto;
   display: none;
 
   &.visibility {
-    display: block;
+    display: flex;
   }
 }
 .error {
