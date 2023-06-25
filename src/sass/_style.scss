@@ -7,7 +7,7 @@
 
 .breed-select {
   width: 50%;
-  margin: 0 auto;
+  margin: 0 auto 30px;
   display: none;
 
   &.visibility {
@@ -22,9 +22,8 @@
   }
 }
 .cat-info {
-  padding-top: 30px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
 
   display: none;
@@ -33,10 +32,13 @@
     display: flex;
   }
 }
+
 .cat-info__img {
-  margin-right: 30px;
+  height: auto;
+  display: block;
+  max-width: 40%;
 }
-.cat-info__wrapper {
+.cat-info__meta {
   width: 40%;
 }
 .cat-info__title {
