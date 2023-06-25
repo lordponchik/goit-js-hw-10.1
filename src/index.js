@@ -10,6 +10,7 @@ const slimSelect = new SlimSelect({
 
 const breedSelectEl = document.querySelector('.breed-select');
 const errorEl = document.querySelector('.error');
+const loaderEl = document.querySelector('.loader');
 const catInfoEl = document.querySelector('.cat-info');
 
 fetchBreeds()
@@ -20,6 +21,7 @@ fetchBreeds()
     slimSelect.setData([...cats]);
     breedSelectEl.classList.add('visibility');
     errorEl.classList.remove('visibility');
+    loaderEl.classList.remove('visibility');
   })
 
   .catch(error => {
@@ -28,6 +30,7 @@ fetchBreeds()
   });
 
 breedSelectEl.addEventListener('change', e => {
+  catInfoEl.classList.remove('visibility');
   fetchCatByBreed(e.currentTarget.value)
     .then(data => {
       const { url, breeds } = data;
@@ -40,6 +43,8 @@ breedSelectEl.addEventListener('change', e => {
         <p class="cat-info__description">${description}</p>
         <p class="cat-info__temperament">${temperament}</p>
       </div>`;
+      loaderEl.classList.remove('visibility');
+      catInfoEl.classList.add('visibility');
     })
     .catch(error => {
       breedSelectEl.classList.remove('visibility');
