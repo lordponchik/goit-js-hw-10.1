@@ -1,10 +1,10 @@
 import axios from 'axios';
 import './axiosAPI';
-
-const loaderEl = document.querySelector('.loader');
+import linksAPIObj from './linksAPI';
 
 export async function fetchBreeds() {
-  loaderEl.classList.add('visibility');
+  linksAPIObj.addLoader();
+
   const breeds = await axios.get('breeds');
   const data = await breeds.data;
 
@@ -12,7 +12,7 @@ export async function fetchBreeds() {
 }
 
 export async function fetchCatByBreed(breedId) {
-  loaderEl.classList.add('visibility');
+  linksAPIObj.addLoader();
 
   const catInfo = await axios.get(`images/search?breed_ids=${breedId}`);
   const data = await catInfo.data[0];
