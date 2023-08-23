@@ -1,82 +1,74 @@
 # Homework / Домашнее задание :clipboard:
-## goit-js-hw-10
+## goit-js-hw-10.1
 :us:
 <details>
 	<summary>English</summary>
-# Acceptance criteria
+  
+# Admission criteria
 
-- `goit-js-hw-07` repository created.
-- In your submitted homework, there are two links: One to your source files and one to your working page on `GitHub Pages`.
-- During live page visits, there are no errors or warnings generated in the console.
-- Clear and descriptive names of variables and functions.
-- Code formatted with `Prettier`.
+ - Repository created goit-js-hw-10.1
+ - When submitting homework, there are two links: to the source files and the working page on GitHub Pages.
+ - When visiting the live job page, there are no errors or warnings in the console.
+ - The project is built with [parcel-project-template](https://github.com/goitacademy/parcel-project-template).
+ - Code formatted Prettier.
 
-## Start files
+## Starter files
 
-- In the [src folder](./src), you will find start files with basic markup and ready-made styles. Copy them to your project. To do this, download this entire repository as an archive or use the [DownGit service](https://downgit.github.io/) to download a separate folder from the repository.
-- In the `gallery-items.js` file, there is an array called `galleryItems`, which contains objects with information about Images: small (preview), original (large) and description. It has already been added to each of the project's JS files.
+[Download starter files index.html](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/goitacademy/javascript-homework/tree/main/v2/10/src) with basic markup, ready-made styles and included script files for each task. Copy it to your project in the src folder in [parcel-project-template](https://github.com/goitacademy/parcel-project-template).
 
-## Task 1 - image gallery
+## Task - cat search
 
-Create a gallery with the ability to click on its items and view full size images in a modal window. Check out the demo video of the gallery.
+Create a front-end part of the application for searching information about a cat by its breed. Watch a demo video of the application, use it as a guide to the required functionality.
 
-https://user-images.githubusercontent.com/17479434/127711719-4e293f5b-fbaa-4851-8671-fc841963d961.mp4
+https://textbook.edu.goit.global/lms-js-homework/v2/assets/medias/catsearch-demo-7a9eca87a69c1131c828592a49f6f647.mp4
 
-Do this task in the `01-gallery.html` and `01-gallery.js` files. Break it down into several subtasks:
+## HTTP-requests
+Use public [The Cat API](https://thecatapi.com/). To get started, you need to register and get a unique access key that you need to attach to each request. We go to [home page](https://thecatapi.com/) and below we press the Signup for free button, follow the instructions, the key will be sent to the specified mail.
 
-1. Creating and rendering markup from the `galleryItems` data array and provided gallery item template.
-2. Implementing delegation to `ul.gallery` and getting the `url` of a large image.
-3. Adding the script and styles of the modal window library [basicLightbox](https://basiclightbox.electerious.com/). Use the [jsdelivrCDN](https://www.jsdelivr.com/package/npm/basiclightbox?path=dist) service and add links to the minified (`.min`) library files to your project.
-4. Opening a modal window by clicking on a gallery item. To do this, check out the [documentation](https://github.com/electerious/basicLightbox#readme) and [examples](https://basiclightbox.electerious.com/).
-5. Replacing the value of the `src` attribute of the `<img>` element in a modal window before opening. Use the ready-made modal window markup with the image from the examples of the [basicLightbox](https://basiclightbox.electerious.com/) library.
-
-### Gallery item markup
-
-The link to the original image must be stored in the `source` data attribute on the `<img>` element and specified in the link's `href`. Do not add any HTML tags or CSS classes other than those in this template.
+The key must be used in the x-api-key HTTP header. It is recommended to use axios and add a header for all requests.
 
 ```html
-<li class="gallery__item">
-  <a class="gallery__link" href="large-image.jpg">
-    <img
-      class="gallery__image"
-      src="small-image.jpg"
-      data-source="large-image.jpg"
-      alt="Image description"
-    />
-  </a>
-</li>
+import axios from "axios";
+
+axios.defaults.headers.common["x-api-key"] = "your key";
 ```
 
-Please note that the image is wrapped in a link, which means that, when clicked, the user will be redirected to another page by default. Disable this behavior by default.
+## Breed collection
+When the page is loaded, an HTTP request should be made for the collection of rocks. To do this, you need to make a GET request to the https://api.thecatapi.com/v1/breeds resource, which returns an array of objects. Upon successful request, it is necessary to fill select.breed-select with options so that the value of the option contains the id of the breed, and the name of the breed is displayed in the interface to the user.
 
-### Closing from keyboard
+Write a fetchBreeds() function that makes an HTTP request and returns a promise with an array of breeds as the result of the request. Put it in the cat-api.js file and make a named export.
 
-> ⚠️ The following features are optional, but they will be good for additional practice.
+## Information about the cat
+When the user selects an option in the select, it is necessary to perform a request for complete information about the cat to the https://api.thecatapi.com/v1/images/search resource. Don't forget to include the breed_ids query string parameter with the breed ID in this request.
 
-Add functionality for modal window closing upon pressing the `Escape` key. Make keyboard listening available only while the modal window is open. In the [basicLightbox](https://basiclightbox.electerious.com/) library, there is a method to close the modal window programmatically.
-
-## Task 2 - `SimpleLightbox` library
-
-Create the same gallery as in the first task, but using the [SimpleLightbox](https://simplelightbox.com/) library, which will handle image clicks, modal opening and closing, and image scrolling with the keyboard.
-
-https://user-images.githubusercontent.com/17479434/127714821-4b7527c8-01db-42d3-83f0-8c1578561982.mp4
-
-It is necessary to slightly change the gallery card markup; use this template.
+This is how the URL for requesting complete information about the dog by breed ID will look like.
 
 ```html
-<li class="gallery__item">
-   <a class="gallery__link" href="large-image.jpg">
-      <img class="gallery__image" src="small-image.jpg" alt="Image description" />
-   </a>
-</li>
+https://api.thecatapi.com/v1/images/search?breed_ids=id__breed
 ```
 
-Do this task in the `02-lightbox.html` and `02-lightbox.js` files. Break it down into several subtasks:
+Write a function fetchCatByBreed(breedId) that takes a breed ID, makes an HTTP request, and returns a promise with cat data as the result of the request. Put it in the cat-api.js file and make a named export.
 
-1. Creating and rendering markup from the `galleryItems` data array and provided gallery element template. Use the ready-made code from the first task.
-2. Adding the script and library styles using the [cdnjs](https://cdnjs.com/libraries/simplelightbox) CDN service. You need to add links to two files: `simple-lightbox.min.js` and `simple-lightbox.min.css`.
-3. Library initialization after gallery items are created and added to `ul.gallery`. To do this, read the [SimpleLightbox](https://simplelightbox.com/) documentation - first of all, the Usage and Markup sections.
-4. Look in the documentation for the Options section and add an image caption display from the `alt` attribute. Let the caption be at the bottom and appear 250 milliseconds after image opening.
+If the request was successful, under the select, in the div.cat-info block, an image and detailed information about the cat appears: breed name, description and temperament.
+
+## Load state handling
+While any HTTP request is in progress, it is necessary to show the loader - the p.loader element. While there are no requests or when the request has completed, the loader must be hidden. Use additional CSS classes for this.
+
+While the request is for a list of breeds, you need to hide select.breed-select and show p.loader.
+While there is a request for information about the cat, you need to hide div.cat-info and show p.loader.
+When any request has completed p.loader needs to be hidden
+
+## Error Handling
+If the user had an error in any HTTP request, for example, the network went down, there was a packet loss, etc., that is, the promise was rejected, you need to display the p.error element, and hide it on each subsequent request. Use additional CSS classes for this.
+
+Testing the error display is very simple - change the request address by adding any character to the end, for example, instead of https://api.thecatapi.com/v1/breeds, use https://api.thecatapi.com/v1/breeds123. The request to get a list of breeds will be rejected with an error. Similarly for requesting information about a cat by breed.
+
+## Interface
+Instead of select.breed-select you can use any library with nice selects like 
+https://slimselectjs.com/
+Instead of p.loader, you can use any library with beautiful CSS loaders, like 
+https://cssloaders.github.io/
+Instead of p.error, you can use any library with beautiful alerts, such as Notiflix
 </details>
 :ukraine:
 <details>
@@ -84,7 +76,7 @@ Do this task in the `02-lightbox.html` and `02-lightbox.js` files. Break it down
 	
 # Критерии приема
 
- - Создан репозиторий goit-js-hw-10.
+ - Создан репозиторий goit-js-hw-10.1
  - При сдаче домашней работы есть две ссылки: на исходные файлы и рабочую страницу на GitHub Pages.
  - При посещении живой страницы задания, в консоли нету ошибок и предупреждений.
  - Проект собран с помощью [parcel-project-template](https://github.com/goitacademy/parcel-project-template).
